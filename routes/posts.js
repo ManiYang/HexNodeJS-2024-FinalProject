@@ -12,7 +12,10 @@ router.get('/', async (req, res, next) => {
         (searchPattern !== undefined)
         ? { content: new RegExp(searchPattern) }
         : {}
-    ).sort(
+    ).populate({
+        path: 'user',
+        select: 'nickname photo'
+    }).sort(
         { createAt: (isTimeSortAscending ? 1 : -1)}
     );
 
