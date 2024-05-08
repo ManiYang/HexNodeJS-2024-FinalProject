@@ -18,13 +18,12 @@ POST {{host}}/posts
 Content-Type: application/json
 
 {
-    "user": "663ae1bad00ea08dc6f1c238",
-    "content": "測試"
+    "content": "測試預設 user"
 }
 
 ###
 
-DELETE {{host}}/posts/663adff4b69eb9a42f6e6757
+DELETE {{host}}/posts/663b12a24b4527d492c03841
 
 
 ### /users ############################

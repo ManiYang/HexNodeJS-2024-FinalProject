@@ -34,6 +34,9 @@ router.post('/', handleRequestBodyForPost, async (req, res, next) => {
             if (user === null) {
                 throw new Error('user 不存在');
             }
+        } else {
+            // set a default user that exists in DB
+            req.body.user = '663adeb90720cbbe100af83e';
         }
 
         req.body.likes = [];
