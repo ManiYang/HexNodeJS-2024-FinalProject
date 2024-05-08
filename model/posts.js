@@ -1,18 +1,19 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema(
     {
         user: {
             type: mongoose.Schema.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: [true, '使用者 user 未指定']
         },
         image: {
             type: String,
-            default: "",
+            default: '',
         },
         content: {
             type: String,
-            required: [true, "貼文內容 content 未填寫"],
+            required: [true, '貼文內容 content 未填寫'],
         },
         createAt: {
             type: Date,
@@ -29,6 +30,6 @@ const postSchema = new mongoose.Schema(
     }
 );
 
-const postModel = mongoose.model("Post", postSchema);
+const postModel = mongoose.model('Post', postSchema);
 
 module.exports = postModel;

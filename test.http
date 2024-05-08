@@ -18,8 +18,8 @@ POST {{host}}/posts
 Content-Type: application/json
 
 {
-    "user": "663adeb90720cbbe100af83e",
-    "content": "I'm learning Node.js ."
+    "user": "663ae1bad00ea08dc6f1c239",
+    "content": "test."
 }
 
 ###

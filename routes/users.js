@@ -41,6 +41,21 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+// router.delete('/:id', async (req, res, next) => {
+//     const result = await User.findByIdAndDelete(req.params.id);
+//     if (result !== null) {
+//         res.status(200).json({
+//             status: 'success',
+//             data: result
+//         });
+//     } else {
+//         res.status(400).json({
+//             status: 'failed',
+//             message: '無此使用者'
+//         });
+//     }
+// })
+
 router.patch('/:id', async (req, res, next) => {
     if (req.body.email !== undefined) {
         res.status(400).json({
