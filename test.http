@@ -6,12 +6,20 @@ GET {{host}}/posts
 
 ###
 
+GET {{host}}/posts?timeSort=asc
+
+###
+
+GET {{host}}/posts?q=test
+
+###
+
 POST {{host}}/posts
 Content-Type: application/json
 
 {
-    "user": "663ae1bad00ea08dc6f1c239",
-    "content": "test by Zoe"
+    "user": "663adeb90720cbbe100af83e",
+    "content": "I'm learning Node.js ."
 }
 
 ###
@@ -19,11 +27,13 @@ Content-Type: application/json
 DELETE {{host}}/posts/663adff4b69eb9a42f6e6757
 
 
+############################################
 
+GET {{host}}/users
 
 ###
 
-GET {{host}}/users
+GET {{host}}/users/663adeb90720cbbe100af83e
 
 ###
 

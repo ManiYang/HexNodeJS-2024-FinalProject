@@ -11,6 +11,21 @@ router.get('/', async (req, res, next) => {
     });
 });
   
+router.get('/:id', async (req, res, next) => {
+    const users = await User.findById(req.params.id);
+    if (users !== null) {
+        res.status(200).json({
+            status: 'success',
+            data: users
+        });
+    } else {
+        res.status(400).json({
+            status: 'failed',
+            message: '無此使用者'
+        });
+    }
+});
+
 router.post('/', async (req, res, next) => {
     try {
         const newUser = await User.create(req.body);
