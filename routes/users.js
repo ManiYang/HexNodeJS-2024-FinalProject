@@ -49,22 +49,32 @@ router.patch('/:id', async (req, res, next) => {
         });
         return;
     }
-    delete req.body.createAt;
+    if (req.body.createAt !== undefined) {
+        res.status(400).json({
+            status: 'failed',
+            message: 'createAt 不可更改'
+        });
+        return;
+    }
 
-    const updatedUser = await User.findByIdAndUpdate(
-        req.params.id, 
-        req.body, 
-        { new: true, runValidators: true }
-    );
-    if (updatedUser !== null) {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id, 
+            req.body, 
+            { new: true, runValidators: true }
+        );
+        if (updatedUser === null) {
+            throw new Error('找不到該 user');
+        }
+
         res.status(200).json({
             status: 'success',
             data: updatedUser
         });
-    } else {
+    } catch (error) {
         res.status(400).json({
             status: 'failed',
-            message: '找不到該 user'
+            message: error.message
         });
     }
 });
