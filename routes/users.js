@@ -41,4 +41,32 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+router.patch('/:id', async (req, res, next) => {
+    if (req.body.email !== undefined) {
+        res.status(400).json({
+            status: 'failed',
+            message: 'email 不可更改'
+        });
+        return;
+    }
+    delete req.body.createAt;
+
+    const updatedUser = await User.findByIdAndUpdate(
+        req.params.id, 
+        req.body, 
+        { new: true, runValidators: true }
+    );
+    if (updatedUser !== null) {
+        res.status(200).json({
+            status: 'success',
+            data: updatedUser
+        });
+    } else {
+        res.status(400).json({
+            status: 'failed',
+            message: '找不到該 user'
+        });
+    }
+});
+
 module.exports = router;

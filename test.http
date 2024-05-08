@@ -45,3 +45,12 @@ Content-Type: application/json
     "email": "zoe@example.com",
     "photo": ""
 }
+
+###
+
+PATCH {{host}}/users/663adeb90720cbbe100af83e
+Content-Type: application/json
+
+{
+    "nickname": "Albert"
+}
