@@ -1,6 +1,6 @@
 @host = http://127.0.0.1:3005
 
-###
+### /posts ###########################
 
 GET {{host}}/posts
 
@@ -18,8 +18,8 @@ POST {{host}}/posts
 Content-Type: application/json
 
 {
-    "user": "663ae1bad00ea08dc6f1c239",
-    "content": "test."
+    "user": "663ae1bad00ea08dc6f1c238",
+    "content": "測試"
 }
 
 ###
@@ -27,7 +27,7 @@ Content-Type: application/json
 DELETE {{host}}/posts/663adff4b69eb9a42f6e6757
 
 
-############################################
+### /users ############################
 
 GET {{host}}/users
 

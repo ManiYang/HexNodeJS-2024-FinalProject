@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const Post = require('../model/posts');
+const User = require('../model/users');
 const { handleRequestBodyForPost } = require('../middlewares')
 
 router.get('/', async (req, res, next) => {
@@ -27,8 +28,17 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', handleRequestBodyForPost, async (req, res, next) => {
     try {
+        if (req.body.user !== undefined) {
+            // 檢查 user 存在
+            const user = await User.findById(req.body.user);
+            if (user === null) {
+                throw new Error('user 不存在');
+            }
+        }
+
         req.body.likes = [];
 
+        //
         const newPost = await Post.create(req.body);
         res.status(200).json({
             status: 'success',
@@ -61,3 +71,4 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 module.exports = router;
+
