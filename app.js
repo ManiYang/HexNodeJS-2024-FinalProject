@@ -35,4 +35,11 @@ app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 app.use(invalidRouteHandler);
 
+app.use((err, req, res, next) => {
+    console.error(err.toString())
+    res.status(500).json({
+        message: '系統發生問題，請稍後再試'
+    })
+});
+
 module.exports = app;

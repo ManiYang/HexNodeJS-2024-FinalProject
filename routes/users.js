@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const User = require('../model/users');
+const errorHandled = require('../services/handleAsyncError')
 
 router.get('/', async (req, res, next) => {
     const users = await User.find({});
@@ -26,20 +27,13 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
-    try {
-        const newUser = await User.create(req.body);
-        res.status(200).json({
-            status: 'success',
-            data: newUser
-        });
-    } catch (error) {
-        res.status(400).json({
-            status: 'failed',
-            message: error.message
-        });
-    }
-});
+router.post('/', errorHandled(async (req, res, next) => {
+    const newUser = await User.create(req.body);
+    res.status(200).json({
+        status: 'success',
+        data: newUser
+    });
+}));
 
 // router.delete('/:id', async (req, res, next) => {
 //     const result = await User.findByIdAndDelete(req.params.id);
@@ -56,7 +50,7 @@ router.post('/', async (req, res, next) => {
 //     }
 // })
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id', errorHandled(async (req, res, next) => {
     if (req.body.email !== undefined) {
         res.status(400).json({
             status: 'failed',
@@ -72,26 +66,19 @@ router.patch('/:id', async (req, res, next) => {
         return;
     }
 
-    try {
-        const updatedUser = await User.findByIdAndUpdate(
-            req.params.id, 
-            req.body, 
-            { new: true, runValidators: true }
-        );
-        if (updatedUser === null) {
-            throw new Error('找不到該 user');
-        }
-
-        res.status(200).json({
-            status: 'success',
-            data: updatedUser
-        });
-    } catch (error) {
-        res.status(400).json({
-            status: 'failed',
-            message: error.message
-        });
+    const updatedUser = await User.findByIdAndUpdate(
+        req.params.id, 
+        req.body, 
+        { new: true, runValidators: true }
+    );
+    if (updatedUser === null) {
+        throw new Error('找不到該 user');
     }
-});
+
+    res.status(200).json({
+        status: 'success',
+        data: updatedUser
+    });
+}));
 
 module.exports = router;

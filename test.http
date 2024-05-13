@@ -18,6 +18,7 @@ POST {{host}}/posts
 Content-Type: application/json
 
 {
+    "user": "123456",
     "content": "測試預設 user"
 }
 
