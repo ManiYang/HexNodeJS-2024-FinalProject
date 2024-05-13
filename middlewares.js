@@ -22,7 +22,7 @@ function errorHandler(err, req, res, next) {
 
     if (!isOperational) {
         // 寫 log 
-        console.error(`[Error] ${err}`); // (暫時用 console.error())
+        console.error(`[Non-operational Error] ${err}`); // (暫時用 console.error())
     }
 
     const msgObj = { mesage: userMessage };

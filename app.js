@@ -10,6 +10,20 @@ const postsRouter = require('./routes/posts');
 const usersRouter = require('./routes/users');
 const { invalidRouteHandler, errorHandler } = require('./middlewares')
 
+process.on('uncaughtException', (err) => {
+    console.error('[Uncaught Exception]');
+    console.error(err);
+    console.error(err.stack);
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('[Unhandled Rejection]');
+    console.error(promise);
+    console.error(reason);
+});
+
+//
 dotenv.config();
  
 // MongoDB
