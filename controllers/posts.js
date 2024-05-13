@@ -14,7 +14,7 @@ module.exports = {
             path: 'user',
             select: 'nickname photo'
         }).sort(
-            { createAt: (isTimeSortAscending ? 1 : -1)}
+            { createAt: (isTimeSortAscending ? 1 : -1) }
         );
 
         res.status(200).json({
