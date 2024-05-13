@@ -18,8 +18,7 @@ POST {{host}}/posts
 Content-Type: application/json
 
 {
-    "user": "663b12a24b4527d492c03841",
-    "content": "  test "
+    "content": "   "
 }
 
 ###
