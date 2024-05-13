@@ -8,7 +8,8 @@ const dotenv = require('dotenv');
 
 const postsRouter = require('./routes/posts');
 const usersRouter = require('./routes/users');
-const { invalidRouteHandler } = require('./middlewares')
+const { invalidRouteHandler, errorHandler } = require('./middlewares')
+const { respondFailed } = require('services/response');
 
 dotenv.config();
 
@@ -35,11 +36,6 @@ app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 app.use(invalidRouteHandler);
 
-app.use((err, req, res, next) => {
-    console.error(err.toString())
-    res.status(500).json({
-        message: '系統發生問題，請稍後再試'
-    })
-});
+app.use(errorHandler);
 
 module.exports = app;

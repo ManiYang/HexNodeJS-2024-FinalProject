@@ -8,8 +8,13 @@ function errorHandled(asyncFunc) {
     }
 }
 
-function operationalError(statusCode, message) {
-    const error = new Error(message);
+/**
+ * @param {number} statusCode 
+ * @param {string} userMessage 必須是可以被使用者看到的內容
+ * @returns A new instance of `Error`.
+ */
+function operationalError(statusCode, userMessage) {
+    const error = new Error(userMessage);
     error.isOperational = true;
     error.statusCode = statusCode;
     return error;

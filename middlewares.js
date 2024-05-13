@@ -1,3 +1,7 @@
+const { operationalError } = require('services/errorHandling');
+const processErrorForRespond = require('services/processErrorForRespond')
+const { respondFailed } = require('services/response');
+
 /**
  * Handles the request body for creating new post or updating existing post.
  */
@@ -10,10 +14,20 @@ function handleRequestBodyForPost(req, res, next) {
 }
 
 function invalidRouteHandler(req, res, next) {
-    res.status(404).json({
-        status: 'failed',
-        message: '無此路由'
-    });
+    throw operationalError(404, '無此路由');
 }
 
-module.exports = { handleRequestBodyForPost, invalidRouteHandler };
+function errorHandler(err, req, res, next) {
+    const { statusCode, userMessage } = processErrorForRespond(err); 
+
+    const msgObj = { mesage: userMessage };
+    if (process.env.NODE_ENV === "dev") {  
+        // 只有在 dev 環境才加上 `err` 的資訊
+        msgObj.error = err;
+        msgObj.stack = err.stack;
+    }    
+
+    respondFailed(res, statusCode, msgObj);
+}
+
+module.exports = { handleRequestBodyForPost, invalidRouteHandler, errorHandler };

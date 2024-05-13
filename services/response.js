@@ -6,4 +6,11 @@ function respondSuccess(res, statusCode, data) {
     });
 }
 
-module.exports = { respondSuccess };
+function respondFailed(res, statusCode, msgObj) {
+    res.status(statusCode).json({
+        status: 'failed',
+        ...msgObj
+    });
+}
+
+module.exports = { respondSuccess, respondFailed };
