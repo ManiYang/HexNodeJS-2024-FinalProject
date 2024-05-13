@@ -1,13 +1,11 @@
 const User = require('../model/users');
 const { operationalError } = require('../services/errorHandling');
+const { respondSuccess } = require('../services/response');
 
 module.exports = {
     getUsers: async (req, res, next) => {
         const users = await User.find({});
-        res.status(200).json({
-            status: 'success',
-            data: users
-        });
+        respondSuccess(res, 200, users);
     },
 
     getUser: async (req, res, next) => {
@@ -15,19 +13,12 @@ module.exports = {
         if (user === null) {
             throw operationalError(400, 'user 不存在');
         }
-
-        res.status(200).json({
-            status: 'success',
-            data: user
-        });
+        respondSuccess(res, 200, user);
     },
 
     createUser: async (req, res, next) => {
         const newUser = await User.create(req.body);
-        res.status(200).json({
-            status: 'success',
-            data: newUser
-        });
+        respondSuccess(res, 201, newUser);
     },
 
     updateUser: async (req, res, next) => {
@@ -47,10 +38,7 @@ module.exports = {
             throw operationalError(400, 'user 不存在');
         }
     
-        res.status(200).json({
-            status: 'success',
-            data: updatedUser
-        });
+        respondSuccess(res, 200, updatedUser);
     },
 
 };
