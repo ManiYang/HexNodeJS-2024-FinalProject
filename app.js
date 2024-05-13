@@ -9,10 +9,9 @@ const dotenv = require('dotenv');
 const postsRouter = require('./routes/posts');
 const usersRouter = require('./routes/users');
 const { invalidRouteHandler, errorHandler } = require('./middlewares')
-const { respondFailed } = require('services/response');
 
 dotenv.config();
-
+ 
 // MongoDB
 const connectString = process.env.DATABASE.replace(
     '<password>',

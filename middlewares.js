@@ -1,6 +1,6 @@
-const { operationalError } = require('services/errorHandling');
-const processErrorForRespond = require('services/processErrorForRespond')
-const { respondFailed } = require('services/response');
+const { operationalError } = require('./services/errorHandling');
+const processErrorForRespond = require('./services/processErrorForRespond')
+const { respondFailed } = require('./services/response');
 
 /**
  * Handles the request body for creating new post or updating existing post.
