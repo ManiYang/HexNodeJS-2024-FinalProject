@@ -1,5 +1,6 @@
 const Post = require('../model/posts');
 const User = require('../model/users');
+const { operationalError } = require('../services/errorHandling');
 
 module.exports = {
     getPosts: async (req, res, next) => {
@@ -28,7 +29,7 @@ module.exports = {
             // 檢查 user 存在
             const user = await User.findById(req.body.user);
             if (user === null) {
-                throw new Error('user 不存在');
+                throw operationalError(400, 'user 不存在');
             }
         } else {
             // set a default user that exists in DB
@@ -48,7 +49,7 @@ module.exports = {
     deletePost: async (req, res, next) => {
         const result = await Post.findByIdAndDelete(req.params.id);
         if (result === null) {
-            throw new Error('找不到指定 ID 的貼文');
+            throw operationalError(400, '找不到指定 ID 的貼文');
         }
         res.status(200).json({
             status: 'success',

@@ -1,4 +1,5 @@
 const User = require('../model/users');
+const { operationalError } = require('../services/errorHandling');
 
 module.exports = {
     getUsers: async (req, res, next) => {
@@ -10,18 +11,15 @@ module.exports = {
     },
 
     getUser: async (req, res, next) => {
-        const users = await User.findById(req.params.id);
-        if (users !== null) {
-            res.status(200).json({
-                status: 'success',
-                data: users
-            });
-        } else {
-            res.status(400).json({
-                status: 'failed',
-                message: '無此使用者'
-            });
+        const user = await User.findById(req.params.id);
+        if (user === null) {
+            throw operationalError(400, 'user 不存在');
         }
+
+        res.status(200).json({
+            status: 'success',
+            data: user
+        });
     },
 
     createUser: async (req, res, next) => {
@@ -34,18 +32,10 @@ module.exports = {
 
     updateUser: async (req, res, next) => {
         if (req.body.email !== undefined) {
-            res.status(400).json({
-                status: 'failed',
-                message: 'email 不可更改'
-            });
-            return;
+            throw operationalError(400, 'email 不可更改');
         }
         if (req.body.createAt !== undefined) {
-            res.status(400).json({
-                status: 'failed',
-                message: 'createAt 不可更改'
-            });
-            return;
+            throw operationalError(400, 'createAt 不可更改');
         }
     
         const updatedUser = await User.findByIdAndUpdate(
@@ -54,7 +44,7 @@ module.exports = {
             { new: true, runValidators: true }
         );
         if (updatedUser === null) {
-            throw new Error('找不到該 user');
+            throw operationalError(400, 'user 不存在');
         }
     
         res.status(200).json({
