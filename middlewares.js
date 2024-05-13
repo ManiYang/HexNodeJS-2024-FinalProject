@@ -18,7 +18,12 @@ function invalidRouteHandler(req, res, next) {
 }
 
 function errorHandler(err, req, res, next) {
-    const { statusCode, userMessage } = processErrorForRespond(err); 
+    const { statusCode, isOperational, userMessage } = processErrorForRespond(err); 
+
+    if (!isOperational) {
+        // 寫 log 
+        console.error(`[Error] ${err}`); // (暫時用 console.error())
+    }
 
     const msgObj = { mesage: userMessage };
     if (process.env.NODE_ENV === "dev") {  
@@ -26,7 +31,6 @@ function errorHandler(err, req, res, next) {
         msgObj.error = err;
         msgObj.stack = err.stack;
     }    
-
     respondFailed(res, statusCode, msgObj);
 }
 

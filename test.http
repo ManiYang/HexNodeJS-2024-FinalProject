@@ -18,7 +18,8 @@ POST {{host}}/posts
 Content-Type: application/json
 
 {
-    "content": "   "
+    "user": 1234,
+    "content": "  test "
 }
 
 ###
