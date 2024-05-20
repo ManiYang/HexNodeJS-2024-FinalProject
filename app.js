@@ -1,8 +1,8 @@
-var express = require('express');
+const express = require('express');
 const cors = require('cors')
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
@@ -36,7 +36,7 @@ mongoose.connect(connectString).then(() => {
 })
 
 //
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
