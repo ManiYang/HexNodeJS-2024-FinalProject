@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema(
             type: String,
             enum: ["group", "person"],
             required: [true, "貼文類型 type 未填寫"],
-        }
+        },
         tags: [{
             type: String,
             required: [true, '標籤 tag 不可空白']

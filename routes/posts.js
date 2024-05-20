@@ -1,16 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-const { handleRequestBodyForPost } = require("../middlewares");
 const { errorHandled } = require("../services/errorHandling");
 const controllers = require("../controllers/posts");
 
 router.get("/", errorHandled(controllers.getPosts));
-router.post(
-    "/",
-    handleRequestBodyForPost,
-    errorHandled(controllers.createPost)
-);
-router.delete("/:id", errorHandled(controllers.deletePost));
+router.delete("/", errorHandled(controllers.deleteAllPosts));
 
 module.exports = router;

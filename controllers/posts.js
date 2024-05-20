@@ -49,4 +49,28 @@ module.exports = {
         respondSuccess(res, 200, result);
     },
 
+    deleteAllPosts: async (req, res, next) => {
+        const result = await Post.deleteMany({});
+        respondSuccess(res, 200, result);
+    },
+ 
+    updatePost: async (req, res, next) => {
+        if (req.body.user !== undefined) {
+            throw new operationalError(400, '發文者 user 不可更改');
+        }
+        if (req.body.createdAt != undefined) {
+            throw operationalError(400, 'createdAt 不可更改');
+        }
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            req.params.id, 
+            req.body,
+            { new: true, runValidators: true }
+        );
+        if (updatedPost === null) {
+            throw operationalError(400, '貼文不存在');
+        }
+
+        respondSuccess(res, 200, updatedPost);
+    },
 };
