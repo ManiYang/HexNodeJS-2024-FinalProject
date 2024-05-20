@@ -14,16 +14,31 @@ GET {{host}}/posts?q=test
 
 ###
 
-POST {{host}}/posts
+POST {{host}}/post
 Content-Type: application/json
 
 {
-    "content": "   "
+    "type": "person",
+    "content": "Hello! I'm Zoe."
 }
 
 ###
 
-DELETE {{host}}/posts/663b12a24b4527d492c03841
+DELETE {{host}}/post/664acdd037326c3e11e79124
+
+
+### delete ALL posts
+
+DELETE {{host}}/posts
+
+###
+
+PATCH {{host}}/post/664acd9d37326c3e11e79120
+Content-Type: application/json
+
+{
+    "tags": ["學習", " "]
+}
 
 
 ### /users ############################

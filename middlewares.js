@@ -9,6 +9,13 @@ function handleRequestBodyForPost(req, res, next) {
     if (typeof req.body.content === 'string') {
         req.body.content = req.body.content.trim();
     }
+    if (req.body.tags instanceof Array) {
+        for (let i=0; i < req.body.tags.length; ++i) {
+            if (typeof req.body.tags[i] !== 'string')
+                continue;
+            req.body.tags[i] = req.body.tags[i].trim();
+        }
+    }
 
     next();
 }
