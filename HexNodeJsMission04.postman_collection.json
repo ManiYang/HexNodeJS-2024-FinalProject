@@ -85,13 +85,54 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"content\": \"hello world\",\r\n    \"image\": \"\"\r\n}",
+					"raw": "{\r\n    \"content\": \" test \",\r\n    \"image\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
+				"url": {
+					"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post",
+					"protocol": "https",
+					"host": [
+						"hexnodejs2024-mission04-midterm",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除特定貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/6641c5ba0943f1c7fbb0075f",
+					"protocol": "https",
+					"host": [
+						"hexnodejs2024-mission04-midterm",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"post",
+						"6641c5ba0943f1c7fbb0075f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除所有貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
 				"url": {
 					"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/posts",
 					"protocol": "https",
@@ -108,12 +149,21 @@
 			"response": []
 		},
 		{
-			"name": "刪除特定貼文",
+			"name": "更新貼文",
 			"request": {
-				"method": "DELETE",
+				"method": "PATCH",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \" test \",\r\n    \"image\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/posts/663b10adac0eb644104157a8",
+					"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/6641c5ba0943f1c7fbb0075f",
 					"protocol": "https",
 					"host": [
 						"hexnodejs2024-mission04-midterm",
@@ -121,8 +171,8 @@
 						"com"
 					],
 					"path": [
-						"posts",
-						"663b10adac0eb644104157a8"
+						"post",
+						"6641c5ba0943f1c7fbb0075f"
 					]
 				}
 			},
