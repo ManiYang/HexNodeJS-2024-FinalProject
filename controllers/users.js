@@ -25,8 +25,8 @@ module.exports = {
         if (req.body.email !== undefined) {
             throw operationalError(400, 'email 不可更改');
         }
-        if (req.body.createAt !== undefined) {
-            throw operationalError(400, 'createAt 不可更改');
+        if (req.body.createdAt !== undefined) {
+            throw operationalError(400, 'createdAt 不可更改');
         }
     
         const updatedUser = await User.findByIdAndUpdate(
