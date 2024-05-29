@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+// const validator = require('validator');
 
 const User = require('../model/users');
 const { operationalError } = require('../services/errorHandling');
@@ -27,12 +28,6 @@ module.exports = {
     signUp: async (req, res, next) => {
         if (req.body.password === undefined)
             throw operationalError(400, '密碼未填寫');
-
-        // 
-        let errorMsg = validatePassword(req.body.password);
-        if (errorMsg) {
-            throw operationalError(400, errorMsg);
-        }
 
         // generate password hash
         const saltLength = 12;
@@ -77,16 +72,3 @@ module.exports = {
     },
 
 };
-
-/**
- * @param {String} password 
- * @returns error message (empty if no error)
- */
-function validatePassword(password) {
-    const minLength = 8;
-    if (password.length < minLength) {
-        return `密碼必須至少 ${minLength} 個字元`;
-    }
-
-    return '';
-}
