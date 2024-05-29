@@ -1,3 +1,6 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const User = require('../model/users');
 const { operationalError } = require('../services/errorHandling');
 const { respondSuccess } = require('../services/response');
@@ -16,9 +19,41 @@ module.exports = {
         respondSuccess(res, 200, user);
     },
 
-    createUser: async (req, res, next) => {
-        const newUser = await User.create(req.body);
-        respondSuccess(res, 201, newUser);
+    // createUser: async (req, res, next) => {
+    //     const newUser = await User.create(req.body);
+    //     respondSuccess(res, 201, newUser);
+    // },
+
+    signUp: async (req, res, next) => {
+        if (req.body.password === undefined)
+            throw operationalError(400, '密碼未填寫');
+
+        // 
+        let errorMsg = validatePassword(req.body.password);
+        if (errorMsg) {
+            throw operationalError(400, errorMsg);
+        }
+
+        // generate password hash
+        const saltLength = 12;
+        const passwordHash = await bcrypt.hash(req.body.password, saltLength);
+        delete req.body.password;
+
+        //
+        const newUser = await User.create({ ...req.body, passwordHash });
+
+        // generate JWT token
+        token = jwt.sign(
+            { id: newUser._id },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRE_TIME }
+        );
+
+        respondSuccess(res, 201, {
+            nickname: newUser.nickname,
+            photo: newUser.photo,
+            token
+        });
     },
 
     updateUser: async (req, res, next) => {
@@ -42,3 +77,16 @@ module.exports = {
     },
 
 };
+
+/**
+ * @param {String} password 
+ * @returns error message (empty if no error)
+ */
+function validatePassword(password) {
+    const minLength = 8;
+    if (password.length < minLength) {
+        return `密碼必須至少 ${minLength} 個字元`;
+    }
+
+    return '';
+}

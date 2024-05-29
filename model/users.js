@@ -12,9 +12,19 @@ const userSchema = new mongoose.Schema(
             unique: true,
             select: false
         },
+        passwordHash: {
+            type: String,
+            required: [true, "使用者密碼未填寫"],
+            select: false
+        },
         photo: {
             type: String,
             default: ""
+        },
+        gender: {
+            type: String,
+            enum: ["male", "female", "na"],  
+            default: "na"
         },
         createdAt: {
             type: Date,
