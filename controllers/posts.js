@@ -16,7 +16,7 @@ module.exports = {
             path: 'user',
             select: 'nickname photo'
         }).sort(
-            { createAt: (isTimeSortAscending ? 1 : -1) }
+            { createdAt: (isTimeSortAscending ? 1 : -1) }
         );
 
         respondSuccess(res, 200, posts);
