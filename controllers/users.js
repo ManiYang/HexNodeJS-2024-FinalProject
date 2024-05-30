@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-// const validator = require('validator');
+const validator = require('validator');
 
 const User = require('../model/users');
 const { operationalError } = require('../services/errorHandling');
@@ -20,14 +20,14 @@ module.exports = {
         respondSuccess(res, 200, user);
     },
 
-    // createUser: async (req, res, next) => {
-    //     const newUser = await User.create(req.body);
-    //     respondSuccess(res, 201, newUser);
-    // },
-
     signUp: async (req, res, next) => {
         if (req.body.password === undefined)
             throw operationalError(400, '密碼未填寫');
+
+        const passwordMinLength = 8;
+        if (!validator.isLength(req.body.password, { min: passwordMinLength })) {
+            throw operationalError(400, `密碼至少需 ${passwordMinLength} 個字元`);
+        }
 
         // generate password hash
         const saltLength = 12;
@@ -49,6 +49,26 @@ module.exports = {
             photo: newUser.photo,
             token
         });
+    },
+
+    signIn: async (req, res, next) => {
+        if (!req.body.email) {
+            throw operationalError(400, 'Email 未填寫');
+        }
+        if (!req.body.password) {
+            throw operationalError(400, '密碼未填寫');
+        }
+
+        // get password hash from DB
+
+
+
+        
+        // compare
+
+
+
+
     },
 
     updateUser: async (req, res, next) => {

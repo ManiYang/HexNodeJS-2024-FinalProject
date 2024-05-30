@@ -14,7 +14,17 @@ function processErrorForRespond(err) {
             statusCode = 400;
             isOperational = true;
             userMessage = '資料欄位未填寫正確，請重新輸入';
-        } 
+        }  
+        else if (err.name === "MongoServerError") {
+            const errmsg = err.errorResponse?.errmsg;
+            if ((typeof errmsg === 'string') && errmsg.startsWith('E11000 duplicate key error')) {
+                if (err.errorResponse.keyValue?.email !== undefined) {
+                    statusCode = 400;
+                    isOperational = true;
+                    userMessage = '該 Email 已經註冊過';
+                }
+            }
+        }
     }
 
     return { statusCode, isOperational, userMessage };

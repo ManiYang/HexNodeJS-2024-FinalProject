@@ -14,6 +14,8 @@ router.post(
     errorHandled(controllers.signUp)
 );
 
+router.post("/sign_in", errorHandled(controllers.signIn));
+
 router.patch("/:id", errorHandled(controllers.updateUser));
 
 module.exports = router;

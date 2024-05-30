@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
     "type": "person",
-    "content": "Hello! I'm Zoe."
+    "content": "   "
 }
 
 ###
@@ -51,12 +51,13 @@ GET {{host}}/users/663adeb90720cbbe100af83e
 
 ###
 
-POST {{host}}/users
+POST {{host}}/user/sign_up
 Content-Type: application/json
 
 {
-    "nickname": "Zoe",
-    "email": "zoe@example.com",
+    "nickname": "Zoe1",
+    "email": "zoe1@example.com",
+    "password": "thisiszoe",
     "photo": ""
 }
 
