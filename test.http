@@ -55,10 +55,20 @@ POST {{host}}/user/sign_up
 Content-Type: application/json
 
 {
-    "nickname": "Zoe1",
-    "email": "zoe1@example.com",
-    "password": "thisiszoe",
+    "nickname": "Zoe2",
+    "email": "zoe2@example.com",
+    "password": "this is zoe2",
     "photo": ""
+}
+
+###
+
+POST {{host}}/user/sign_in
+Content-Type: application/json
+
+{
+    "email": "zoe2@example.com",
+    "password": "this is zoe2"
 }
 
 ###

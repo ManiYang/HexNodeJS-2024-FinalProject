@@ -21,7 +21,7 @@ function processErrorForRespond(err) {
                 if (err.errorResponse.keyValue?.email !== undefined) {
                     statusCode = 400;
                     isOperational = true;
-                    userMessage = '該 Email 已經註冊過';
+                    userMessage = '帳號已被註冊，請替換新的 Email';
                 }
             }
         }

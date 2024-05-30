@@ -7,15 +7,19 @@ const { handleRequestBodyForUser } = require("../middlewares");
 
 router.get("/:id", errorHandled(controllers.getUser));
 
-// router.post("/", errorHandled(controllers.createUser));
 router.post(
     "/sign_up",
     handleRequestBodyForUser,
     errorHandled(controllers.signUp)
 );
 
-router.post("/sign_in", errorHandled(controllers.signIn));
+router.post(
+    "/sign_in",
+    handleRequestBodyForUser,
+    errorHandled(controllers.signIn)
+);
 
 router.patch("/:id", errorHandled(controllers.updateUser));
 
+//
 module.exports = router;
