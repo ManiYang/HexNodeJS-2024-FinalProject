@@ -5,7 +5,13 @@ const { errorHandled } = require("../services/errorHandling");
 const controllers = require("../controllers/users");
 const { handleRequestBodyForUser, authenticateUser } = require("../middlewares");
 
-router.get("/:id", errorHandled(controllers.getUser));
+// router.get("/:id", errorHandled(controllers.getUser));
+
+router.get(
+    "/profile", 
+    authenticateUser,
+    errorHandled(controllers.getProfile)
+);
 
 router.post(
     "/sign_up",

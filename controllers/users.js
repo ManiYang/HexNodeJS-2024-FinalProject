@@ -12,11 +12,24 @@ module.exports = {
         respondSuccess(res, 200, users);
     },
 
-    getUser: async (req, res, next) => {
-        const user = await User.findById(req.params.id);
+    // getUser: async (req, res, next) => {
+    //     const user = await User.findById(req.params.id);
+    //     if (user === null) {
+    //         throw operationalError(400, 'user 不存在');
+    //     }
+    //     respondSuccess(res, 200, user);
+    // },
+
+    getProfile: async (req, res, next) => {
+        if (req.userId === undefined) {
+            throw new Error('userId not found');
+        }
+
+        const user = await User.findById(req.userId).select('-_id');
         if (user === null) {
             throw operationalError(400, 'user 不存在');
         }
+
         respondSuccess(res, 200, user);
     },
 

@@ -47,17 +47,13 @@ GET {{host}}/users
 
 ###
 
-GET {{host}}/users/663adeb90720cbbe100af83e
-
-###
-
 POST {{host}}/user/sign_up
 Content-Type: application/json
 
 {
-    "nickname": "Zoe2",
-    "email": "zoe2@example.com",
-    "password": "this is zoe2",
+    "nickname": "Zoe3",
+    "email": "zoe3@example.com",
+    "password": "this is zoe3",
     "photo": ""
 }
 
@@ -67,8 +63,8 @@ POST {{host}}/user/sign_in
 Content-Type: application/json
 
 {
-    "email": "zoe2@example.com",
-    "password": "this is zoe2"
+    "email": "zoe3@example.com",
+    "password": "this is zoe3"
 }
 
 ###
@@ -81,6 +77,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgxNmUzM
     "password": "this is zoe2"
 }
 
+###
+
+GET {{host}}/user/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA1Njg4OCwiZXhwIjoxNzE3MzE2MDg4fQ.hF2MgzOyZLZg0Z4pMkOZCK3jzkEwmeE-lI2Wh-3UUXE
 
 ###
 
