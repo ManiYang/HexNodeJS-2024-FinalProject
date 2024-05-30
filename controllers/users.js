@@ -33,19 +33,19 @@ module.exports = {
         const passwordHash = await generatePasswordHash(req.body.password);
         delete req.body.password;
 
+        // generate JWT token
+        const token = jwt.sign(
+            { id: newUser._id }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: process.env.JWT_EXPIRE_TIME });
+
         //
         const newUser = await User.create({ ...req.body, passwordHash });
 
-        // generate JWT token
-        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-            expiresIn: process.env.JWT_EXPIRE_TIME,
-        });
-
-        //
         respondSuccess(res, 201, {
             nickname: newUser.nickname,
             photo: newUser.photo,
-            token,
+            token
         });
     },
 
@@ -101,6 +101,13 @@ module.exports = {
         const passwordHash = await generatePasswordHash(req.body.password);
         delete req.body.password;
 
+        // generate JWT token
+        const token = jwt.sign(
+            { id: req.authenticatedUser.id }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: process.env.JWT_EXPIRE_TIME }
+        );
+
         //
         const updatedUser = await User.findByIdAndUpdate(
             req.authenticatedUser.id,
@@ -110,12 +117,6 @@ module.exports = {
         if (updatedUser === null) {
             throw operationalError(400, "user 不存在");
         }
-
-        // generate JWT token
-        const token = jwt.sign(
-            { id: req.authenticatedUser.id }, 
-            process.env.JWT_SECRET, 
-            { expiresIn: process.env.JWT_EXPIRE_TIME });
 
         //
         respondSuccess(res, 200, { token });
