@@ -51,9 +51,9 @@ POST {{host}}/user/sign_up
 Content-Type: application/json
 
 {
-    "nickname": "Zoe3",
-    "email": "zoe3@example.com",
-    "password": "this is zoe3",
+    "nickname": "Zoe4",
+    "email": "zoe4@example.com",
+    "password": "this is zoe4",
     "photo": ""
 }
 
@@ -63,32 +63,32 @@ POST {{host}}/user/sign_in
 Content-Type: application/json
 
 {
-    "email": "zoe3@example.com",
-    "password": "this is zoe3"
+    "email": "zoe4@example.com",
+    "password": "this is zoe444"
 }
 
 ###
 
 PATCH {{host}}/user/updatePassword
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA1Njg4OCwiZXhwIjoxNzE3MzE2MDg4fQ.hF2MgzOyZLZg0Z4pMkOZCK3jzkEwmeE-lI2Wh-3UUXE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzA3NDA3MiwiZXhwIjoxNzE3MzMzMjcyfQ.Q-ftvnGT93K7Tvlh86YXP4ixclcSO7aqdkZ1YmieIkE
 
 {
-    "password": "this is zoe3"
+    "password": "this is zoe444"
 }
 
 ###
 
 GET {{host}}/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA2NzIwNCwiZXhwIjoxNzE3MzI2NDA0fQ.H1DxhNu8ZJMEEr2HJ4hNNsWYE2mnt7xzjm61zIzvXWE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzA3NDA3MiwiZXhwIjoxNzE3MzMzMjcyfQ.Q-ftvnGT93K7Tvlh86YXP4ixclcSO7aqdkZ1YmieIkE
 
 ###
 
 PATCH {{host}}/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA2NzIwNCwiZXhwIjoxNzE3MzI2NDA0fQ.H1DxhNu8ZJMEEr2HJ4hNNsWYE2mnt7xzjm61zIzvXWE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzA3NDA3MiwiZXhwIjoxNzE3MzMzMjcyfQ.Q-ftvnGT93K7Tvlh86YXP4ixclcSO7aqdkZ1YmieIkE
 
 {
-    "nickname": " Zoe3  "
+    "nickname": " Zoe444  "
 }
