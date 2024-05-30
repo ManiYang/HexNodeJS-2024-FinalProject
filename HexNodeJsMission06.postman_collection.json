@@ -150,10 +150,20 @@
 		{
 			"name": "刪除特定貼文",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3YTBmY2JkMDk0NThmMDVlM2ZhNSIsImlhdCI6MTcxNzA3NDU0MiwiZXhwIjoxNzE3MTYwOTQyfQ.4K1bA7SCcgpS8P2zvoDAajJt4kDf0YXEiZvbN9AtPn4",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/664ad366f0fcb07202a7115d",
+					"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/66587faf84edaa779d313f16",
 					"protocol": "https",
 					"host": [
 						"hexnodejs2024-mission04-midterm",
@@ -162,7 +172,7 @@
 					],
 					"path": [
 						"post",
-						"664ad366f0fcb07202a7115d"
+						"66587faf84edaa779d313f16"
 					]
 				}
 			},
@@ -171,6 +181,16 @@
 		{
 			"name": "刪除所有貼文",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3YTBmY2JkMDk0NThmMDVlM2ZhNSIsImlhdCI6MTcxNzA3NDU0MiwiZXhwIjoxNzE3MTYwOTQyfQ.4K1bA7SCcgpS8P2zvoDAajJt4kDf0YXEiZvbN9AtPn4",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
