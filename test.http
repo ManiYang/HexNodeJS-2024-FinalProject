@@ -69,26 +69,26 @@ Content-Type: application/json
 
 ###
 
-POST {{host}}/user/updatePassword
+PATCH {{host}}/user/updatePassword
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgxNmUzMDhlNjk3NzYzYmQ3MWQ1MCIsImlhdCI6MTcxNzA1NDQ5OSwiZXhwIjoxNzE3MzEzNjk5fQ.4FJ82_m89H-LSy6ZcF_R3DVcBd6tKjmozr91iKBse0M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA1Njg4OCwiZXhwIjoxNzE3MzE2MDg4fQ.hF2MgzOyZLZg0Z4pMkOZCK3jzkEwmeE-lI2Wh-3UUXE
 
 {
-    "password": "this is zoe2"
+    "password": "this is zoe3"
 }
 
 ###
 
 GET {{host}}/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA1Njg4OCwiZXhwIjoxNzE3MzE2MDg4fQ.hF2MgzOyZLZg0Z4pMkOZCK3jzkEwmeE-lI2Wh-3UUXE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA2NzIwNCwiZXhwIjoxNzE3MzI2NDA0fQ.H1DxhNu8ZJMEEr2HJ4hNNsWYE2mnt7xzjm61zIzvXWE
 
 ###
 
 PATCH {{host}}/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA1Njg4OCwiZXhwIjoxNzE3MzE2MDg4fQ.hF2MgzOyZLZg0Z4pMkOZCK3jzkEwmeE-lI2Wh-3UUXE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA2NzIwNCwiZXhwIjoxNzE3MzI2NDA0fQ.H1DxhNu8ZJMEEr2HJ4hNNsWYE2mnt7xzjm61zIzvXWE
 
 {
-    "nickname": "Zoe3"
+    "nickname": " Zoe3  "
 }

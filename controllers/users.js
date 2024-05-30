@@ -13,16 +13,7 @@ module.exports = {
     },
 
     getProfile: async (req, res, next) => {
-        if (req.userId === undefined) {
-            throw new Error("userId not found");
-        }
-
-        const user = await User.findById(req.userId).select("-_id");
-        if (user === null) {
-            throw operationalError(400, "user 不存在");
-        }
-
-        respondSuccess(res, 200, user);
+        respondSuccess(res, 200, req.authenticatedUser.info);
     },
 
     signUp: async (req, res, next) => {
@@ -94,11 +85,6 @@ module.exports = {
     },
 
     updatePassword: async (req, res, next) => {
-        if (req.userId === undefined) {
-            throw new Error("userId not found");
-        }
-
-        //
         if (req.body.password === undefined) {
             throw operationalError(400, "密碼未填寫");
         }
@@ -117,7 +103,7 @@ module.exports = {
 
         //
         const updatedUser = await User.findByIdAndUpdate(
-            req.userId,
+            req.authenticatedUser.id,
             { passwordHash },
             { new: true, runValidators: true }
         );
@@ -127,7 +113,7 @@ module.exports = {
 
         // generate JWT token
         const token = jwt.sign(
-            { id: req.userId }, 
+            { id: req.authenticatedUser.id }, 
             process.env.JWT_SECRET, 
             { expiresIn: process.env.JWT_EXPIRE_TIME });
 
@@ -136,13 +122,9 @@ module.exports = {
     },
 
     updateProfile: async (req, res, next) => {
-        if (req.userId === undefined) {
-            throw new Error("userId not found");
-        }
-
         const { nickname, photo, gender } = req.body;
         const updatedUser = await User.findByIdAndUpdate(
-            req.userId, 
+            req.authenticatedUser.id,
             { nickname, photo, gender }, 
             { new: true, runValidators: true }
         ).select('nickname photo gender -_id');

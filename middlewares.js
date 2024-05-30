@@ -4,6 +4,7 @@ const validator = require('validator');
 const { operationalError } = require('./services/errorHandling');
 const processErrorForRespond = require('./services/processErrorForRespond');
 const { respondFailed } = require('./services/response');
+const User = require('./model/users');
 
 /**
  * Handles the request body for creating new post or updating existing post.
@@ -41,30 +42,31 @@ function handleRequestBodyForUser(req, res, next) {
     next();
 }
 
-function authenticateUser(req, res, next) {
+async function authenticateUser(req, res, next) {
     const authHeaderValue = req.headers.authorization ?? '';
     if (authHeaderValue.startsWith('Bearer ')) {
         const token = authHeaderValue.substring(7);
-        
-        jwt.verify(token, process.env.JWT_SECRET,  (err, decoded) => {
-            if (err) {
-                throw operationalError(401, '授權失敗');
-            }
-            if (decoded.id === undefined) {
-                throw new Error('id not found in JWT payload');
-            }
-            req.userId = decoded.id;
-            next();
-        });
 
+        let decoded = null;
+        try {
+            decoded = await verifyJwtAsync(token);
+        } catch {
+            throw operationalError(401, '未登入');
+        }
+
+        if (decoded.id === undefined) {
+            throw operationalError(401, '未登入');
+        }
+
+        const userInfo = await User.findById(decoded.id).select('-_id');
+        if (userInfo === null) {
+            throw operationalError(400, 'user 不存在');
+        }
+
+        req.authenticatedUser = { id: decoded.id, info: userInfo };
+        next();
     } else {
-        throw operationalError(401, '授權失敗');
-    }
-}
-
-function trimObjectProperty(obj, propertyName) {
-    if (typeof obj[propertyName] === 'string') {
-        obj[propertyName] = obj[propertyName].trim();
+        throw operationalError(401, '未登入');
     }
 }
 
@@ -91,6 +93,28 @@ function errorHandler(err, req, res, next) {
     respondFailed(res, statusCode, msgObj);
 }
 
+// utilities
+
+function trimObjectProperty(obj, propertyName) {
+    if (typeof obj[propertyName] === 'string') {
+        obj[propertyName] = obj[propertyName].trim();
+    }
+}
+
+function verifyJwtAsync(token) {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(payload)
+            }
+        });
+    });
+}
+
+//
+
 module.exports = {
     handleRequestBodyForPost,
     handleRequestBodyForUser,
@@ -98,3 +122,4 @@ module.exports = {
     invalidRouteHandler,
     errorHandler,
 };
+
