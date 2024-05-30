@@ -73,6 +73,17 @@ Content-Type: application/json
 
 ###
 
+POST {{host}}/user/updatePassword
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgxNmUzMDhlNjk3NzYzYmQ3MWQ1MCIsImlhdCI6MTcxNzA1NDQ5OSwiZXhwIjoxNzE3MzEzNjk5fQ.4FJ82_m89H-LSy6ZcF_R3DVcBd6tKjmozr91iKBse0M
+
+{
+    "password": "this is zoe2"
+}
+
+
+###
+
 PATCH {{host}}/users/663adeb90720cbbe100af83e
 Content-Type: application/json
 

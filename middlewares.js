@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const validator = require('validator');
 
 const { operationalError } = require('./services/errorHandling');
@@ -40,6 +41,26 @@ function handleRequestBodyForUser(req, res, next) {
     next();
 }
 
+function authenticateUser(req, res, next) {
+    const authHeaderValue = req.headers.authorization ?? '';
+    if (authHeaderValue.startsWith('Bearer ')) {
+        const token = authHeaderValue.substring(7);
+        
+        jwt.verify(token, process.env.JWT_SECRET,  (err, decoded) => {
+            if (err) {
+                throw operationalError(401, '授權失敗');
+            }
+            if (decoded.id === undefined) {
+                throw new Error('id not found in JWT payload');
+            }
+            req.userId = decoded.id;
+            next();
+        });
+
+    } else {
+        throw operationalError(401, '授權失敗');
+    }
+}
 
 function trimObjectProperty(obj, propertyName) {
     if (typeof obj[propertyName] === 'string') {
@@ -73,6 +94,7 @@ function errorHandler(err, req, res, next) {
 module.exports = {
     handleRequestBodyForPost,
     handleRequestBodyForUser,
+    authenticateUser,
     invalidRouteHandler,
     errorHandler,
 };

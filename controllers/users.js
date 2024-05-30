@@ -33,9 +33,8 @@ module.exports = {
             throw operationalError(400, errorMsg);
         }
 
-        // generate password hash
-        const saltLength = 12;
-        const passwordHash = await bcrypt.hash(req.body.password, saltLength);
+        // 
+        const passwordHash = await generatePasswordHash(req.body.password);
         delete req.body.password;
 
         //
@@ -91,9 +90,51 @@ module.exports = {
         });
     },
 
+    updatePassword: async(req, res, next) => {
+        if (req.userId === undefined) {
+            throw new Error('userId not found');
+        }
+
+        //
+        if (req.body.password === undefined) {
+            throw operationalError(400, '密碼未填寫');
+        }
+        if (typeof req.body.password !== 'string') {
+            throw new TypeError('密碼必須是字串');
+        }
+
+        let errorMsg = validatePassword(req.body.password);
+        if (errorMsg) {
+            throw operationalError(400, errorMsg);
+        }
+
+        //
+        const passwordHash = await generatePasswordHash(req.body.password);
+        delete req.body.password;
+
+        //
+        const updatedUser = await User.findByIdAndUpdate(req.userId, { passwordHash });
+        if (updatedUser === null) {
+            throw operationalError(400, 'user 不存在');
+        }
+
+        // generate JWT token
+        const token = jwt.sign(
+            { id: req.userId },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRE_TIME }
+        );
+
+        //
+        respondSuccess(res, 200, { token });
+    },
+
     updateUser: async (req, res, next) => {
         if (req.body.email !== undefined) {
             throw operationalError(400, 'email 不可更改');
+        }
+        if (req.body.password !== undefined) {
+            throw operationalError(400, 'password 不可更改');
         }
         if (req.body.createdAt !== undefined) {
             throw operationalError(400, 'createdAt 不可更改');
@@ -134,4 +175,9 @@ function validatePassword(password) {
     }
 
     return '';
+}
+
+async function generatePasswordHash(password) {
+    const saltLength = 12;
+    return await bcrypt.hash(password, saltLength);
 }

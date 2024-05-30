@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { errorHandled } = require("../services/errorHandling");
 const controllers = require("../controllers/users");
-const { handleRequestBodyForUser } = require("../middlewares");
+const { handleRequestBodyForUser, authenticateUser } = require("../middlewares");
 
 router.get("/:id", errorHandled(controllers.getUser));
 
@@ -17,6 +17,12 @@ router.post(
     "/sign_in",
     handleRequestBodyForUser,
     errorHandled(controllers.signIn)
+);
+
+router.post(
+    "/updatePassword", 
+    authenticateUser,
+    errorHandled(controllers.updatePassword)
 );
 
 router.patch("/:id", errorHandled(controllers.updateUser));
