@@ -36,7 +36,7 @@ module.exports = {
 
         //
         const session = await mongoose.startSession();
-        await session.startTransaction();
+        session.startTransaction();
         try {
             const newUser = await User.create({ ...req.body, passwordHash });
             
@@ -54,7 +54,6 @@ module.exports = {
             //
             respondSuccess(res, 201, {
                 nickname: newUser.nickname,
-                photo: newUser.photo,
                 token
             });
         } catch (err) {
@@ -94,8 +93,7 @@ module.exports = {
         //
         respondSuccess(res, 200, {
             nickname: user.nickname,
-            photo: user.photo,
-            token,
+            token
         });
     },
 
@@ -134,7 +132,10 @@ module.exports = {
         }
 
         //
-        respondSuccess(res, 200, { token });
+        respondSuccess(res, 200, { 
+            nickname: req.authenticatedUser.info.nickname,
+            token 
+        });
     },
 
     updateProfile: async (req, res, next) => {

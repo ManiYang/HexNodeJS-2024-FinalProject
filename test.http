@@ -3,6 +3,7 @@
 ### /posts ###########################
 
 GET {{host}}/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzA3NTQ3MSwiZXhwIjoxNzE3MzM0NjcxfQ.YabjlKpZuxXhDcjTAAJ2EAf79h5heMqb6V1aSTBGCMQ
 
 ###
 
@@ -16,16 +17,17 @@ GET {{host}}/posts?q=test
 
 POST {{host}}/post
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzA3NTQ3MSwiZXhwIjoxNzE3MzM0NjcxfQ.YabjlKpZuxXhDcjTAAJ2EAf79h5heMqb6V1aSTBGCMQ
 
 {
     "type": "person",
-    "content": "   "
+    "content": " test 1234  "
 }
 
 ###
 
-DELETE {{host}}/post/664acdd037326c3e11e79124
-
+DELETE {{host}}/post/66587e4b003a7c31c8b53f09
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzA3NTQ3MSwiZXhwIjoxNzE3MzM0NjcxfQ.YabjlKpZuxXhDcjTAAJ2EAf79h5heMqb6V1aSTBGCMQ
 
 ### delete ALL posts
 
@@ -51,9 +53,9 @@ POST {{host}}/user/sign_up
 Content-Type: application/json
 
 {
-    "nickname": "Zoe4",
-    "email": "zoe4@example.com",
-    "password": "this is zoe4",
+    "nickname": "Zoe5",
+    "email": "zoe5@example.com",
+    "password": "this is zoe5",
     "photo": ""
 }
 

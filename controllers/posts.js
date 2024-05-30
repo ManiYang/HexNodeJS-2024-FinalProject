@@ -23,17 +23,7 @@ module.exports = {
     },
 
     createPost: async (req, res, next) => {
-        if (req.body.user !== undefined) {
-            // 檢查 user 存在
-            const user = await User.findById(req.body.user);
-            if (user === null) {
-                throw operationalError(400, 'user 不存在');
-            }
-        } else {
-            // set a default user that exists in DB
-            req.body.user = '663adeb90720cbbe100af83e';
-        }
-    
+        req.body.user = req.authenticatedUser.id;
         req.body.likes = [];
     
         //
