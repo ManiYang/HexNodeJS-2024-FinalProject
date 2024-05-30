@@ -85,9 +85,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM
 
 ###
 
-PATCH {{host}}/users/663adeb90720cbbe100af83e
+PATCH {{host}}/user/profile
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTgzNTZhM2YzMGU2ZTg1ZDI2NDI4ZCIsImlhdCI6MTcxNzA1Njg4OCwiZXhwIjoxNzE3MzE2MDg4fQ.hF2MgzOyZLZg0Z4pMkOZCK3jzkEwmeE-lI2Wh-3UUXE
 
 {
-    "nickname": "Albert"
+    "nickname": "Zoe3"
 }

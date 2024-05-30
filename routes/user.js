@@ -1,37 +1,41 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const { errorHandled } = require("../services/errorHandling");
-const controllers = require("../controllers/users");
-const { handleRequestBodyForUser, authenticateUser } = require("../middlewares");
-
-// router.get("/:id", errorHandled(controllers.getUser));
-
-router.get(
-    "/profile", 
+const { errorHandled } = require('../services/errorHandling');
+const controllers = require('../controllers/users');
+const {
+    handleRequestBodyForUser,
     authenticateUser,
-    errorHandled(controllers.getProfile)
-);
+} = require('../middlewares');
+
+router.get('/profile', authenticateUser, errorHandled(controllers.getProfile));
 
 router.post(
-    "/sign_up",
+    '/sign_up',
     handleRequestBodyForUser,
     errorHandled(controllers.signUp)
 );
 
 router.post(
-    "/sign_in",
+    '/sign_in',
     handleRequestBodyForUser,
     errorHandled(controllers.signIn)
 );
 
 router.post(
-    "/updatePassword", 
+    '/updatePassword',
     authenticateUser,
     errorHandled(controllers.updatePassword)
 );
 
-router.patch("/:id", errorHandled(controllers.updateUser));
+// router.patch('/:id', errorHandled(controllers.updateUser));
+
+router.patch(
+    '/profile',
+    authenticateUser,
+    handleRequestBodyForUser,
+    errorHandled(controllers.updateProfile)
+);
 
 //
 module.exports = router;
