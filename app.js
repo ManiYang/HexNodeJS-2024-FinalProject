@@ -10,6 +10,7 @@ const postRouter = require('./routes/post');
 const postsRouter = require('./routes/posts');
 const userRouter = require('./routes/user');
 const usersRouter = require('./routes/users');
+const uploadRouter = require('./routes/upload');
 const { invalidRouteHandler, errorHandler } = require('./middlewares')
 
 process.on('uncaughtException', (err) => {
@@ -51,6 +52,7 @@ app.use('/post', postRouter);
 app.use('/posts', postsRouter);
 app.use('/user', userRouter);
 app.use('/users', usersRouter);
+app.use('/upload', uploadRouter);
 app.use(invalidRouteHandler);
 
 app.use(errorHandler);
