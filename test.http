@@ -102,7 +102,7 @@ Content-Type: multipart/form-data; boundary=boundary
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzQyMTU4OCwiZXhwIjoxNzE3NjgwNzg4fQ.7XCCqJz8s5uT0qxnmA7QHN9KSSwwGn_7nThAmBimqQw
 
 --boundary
-Content-Disposition: form-data; name="image"; filename="test.png"
+Content-Disposition: form-data; name="image"; filename="test.pngg"
 Content-Type: image/png
 
 < C:/temp/test.png

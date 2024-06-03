@@ -25,7 +25,7 @@ module.exports = {
 
         const file = req.files[0];
         const ext = path.extname(file.originalname);
-        const blob = bucket.file(`images/${uuidv4()}.${ext}`);
+        const blob = bucket.file(`images/${uuidv4()}${ext}`);
 
         const blobStream = blob.createWriteStream();
 

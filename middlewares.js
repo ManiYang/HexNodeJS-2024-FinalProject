@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const validator = require('validator');
 
+const appConfig = require('./app_config');
 const { operationalError } = require('./services/errorHandling');
 const processErrorForRespond = require('./services/processErrorForRespond');
 const { respondFailed } = require('./services/response');
@@ -75,13 +76,13 @@ async function authenticateUser(req, res, next) {
 const checkUploadImage = multer({
     limits: {
         files: 1,
-        fileSize: 2 * 1024 * 1024,
+        fileSize: Math.round(appConfig.maxUploadImageSizeMB * 1024 * 1024),
     },
     fileFilter (req, file, cb) {
         const allowedExts = ['.jpg', '.jpeg', '.png'];
         const ext = path.extname(file.originalname).toLowerCase();
         if (!allowedExts.includes(ext)) {
-            cb(new operationalError(401, '檔案格式錯誤，僅限上傳 jpg, jpeg, png 格式'));
+            cb(new operationalError(400, '檔案格式錯誤，僅限上傳 jpg, jpeg, png 格式'));
         } else {
             cb(null, true); // 接受檔案
         }

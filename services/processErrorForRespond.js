@@ -1,3 +1,4 @@
+const appConfig = require('../app_config');
 
 function processErrorForRespond(err) {
     let statusCode = 500;
@@ -9,13 +10,12 @@ function processErrorForRespond(err) {
         isOperational = true;
         userMessage = err.message;
     } else {
-        // errors from mongoose 
         if (err.name === "ValidationError") {
             statusCode = 400;
             isOperational = true;
             userMessage = '資料欄位未填寫正確，請重新輸入';
         }  
-        else if (err.name === "MongoServerError") {
+        else if (err.name === 'MongoServerError') {
             const errmsg = err.errorResponse?.errmsg;
             if ((typeof errmsg === 'string') && errmsg.startsWith('E11000 duplicate key error')) {
                 if (err.errorResponse.keyValue?.email !== undefined) {
@@ -23,6 +23,18 @@ function processErrorForRespond(err) {
                     isOperational = true;
                     userMessage = '帳號已被註冊，請替換新的 Email';
                 }
+            }
+        }
+        else if (err.name === 'MulterError') {
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                statusCode = 400;
+                isOperational = true;
+                userMessage = `上傳的檔案不可超過 ${appConfig.maxUploadImageSizeMB} MB`;
+            }
+            else if (err.code === 'LIMIT_FILE_COUNT') {
+                statusCode = 400;
+                isOperational = true;
+                userMessage = '只能上傳一個檔案';
             }
         }
     }
