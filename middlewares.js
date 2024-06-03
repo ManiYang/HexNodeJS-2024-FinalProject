@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
 const validator = require('validator');
 
 const { operationalError } = require('./services/errorHandling');
@@ -70,6 +72,22 @@ async function authenticateUser(req, res, next) {
     }
 }
 
+const checkUploadImage = multer({
+    limits: {
+        files: 1,
+        fileSize: 2 * 1024 * 1024,
+    },
+    fileFilter (req, file, cb) {
+        const allowedExts = ['.jpg', '.jpeg', '.png'];
+        const ext = path.extname(file.originalname).toLowerCase();
+        if (!allowedExts.includes(ext)) {
+            cb(new operationalError(401, '檔案格式錯誤，僅限上傳 jpg, jpeg, png 格式'));
+        } else {
+            cb(null, true); // 接受檔案
+        }
+    },
+}).any();
+
 function invalidRouteHandler(req, res, next) {
     throw operationalError(404, '無此路由');
 }
@@ -119,6 +137,7 @@ module.exports = {
     handleRequestBodyForPost,
     handleRequestBodyForUser,
     authenticateUser,
+    checkUploadImage,
     invalidRouteHandler,
     errorHandler,
 };
