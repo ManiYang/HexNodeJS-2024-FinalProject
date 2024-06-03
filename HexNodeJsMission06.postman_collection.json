@@ -460,6 +460,47 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "上傳圖片",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3YTBmY2JkMDk0NThmMDVlM2ZhNSIsImlhdCI6MTcxNzQyNDUxOCwiZXhwIjoxNzE3NTEwOTE4fQ.iVvpkfdCqO6uW8UmvJePpQG5XUbFsyUjCMTod0V26Dc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "c3pA5VV-A/test.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/upload/image",
+					"protocol": "https",
+					"host": [
+						"hexnodejs2024-mission04-midterm",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"upload",
+						"image"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
