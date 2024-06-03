@@ -6,6 +6,8 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+dotenv.config();
+
 const postRouter = require('./routes/post');
 const postsRouter = require('./routes/posts');
 const userRouter = require('./routes/user');
@@ -26,13 +28,10 @@ process.on('unhandledRejection', (reason, promise) => {
     console.error(reason);
 });
 
-//
-dotenv.config();
- 
 // MongoDB
 const connectString = process.env.DATABASE.replace(
     '<password>',
-    process.env.DATABASE_PASSWORD ??= ''
+    process.env.DATABASE_PASSWORD ?? ''
 );
 mongoose.connect(connectString).then(() => {
     console.log('connected to DB');

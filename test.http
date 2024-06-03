@@ -83,14 +83,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlY
 
 GET {{host}}/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzA3NDA3MiwiZXhwIjoxNzE3MzMzMjcyfQ.Q-ftvnGT93K7Tvlh86YXP4ixclcSO7aqdkZ1YmieIkE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzQyMTU4OCwiZXhwIjoxNzE3NjgwNzg4fQ.7XCCqJz8s5uT0qxnmA7QHN9KSSwwGn_7nThAmBimqQw
 
 ###
 
 PATCH {{host}}/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzA3NDA3MiwiZXhwIjoxNzE3MzMzMjcyfQ.Q-ftvnGT93K7Tvlh86YXP4ixclcSO7aqdkZ1YmieIkE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzQyMTU4OCwiZXhwIjoxNzE3NjgwNzg4fQ.7XCCqJz8s5uT0qxnmA7QHN9KSSwwGn_7nThAmBimqQw
 
 {
     "nickname": " Zoe444  "
 }
+
+### upload image #######################
+
+POST {{host}}/upload/image
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ODdlYzkyNGFhZjAyZGY4Yzg2NyIsImlhdCI6MTcxNzQyMTU4OCwiZXhwIjoxNzE3NjgwNzg4fQ.7XCCqJz8s5uT0qxnmA7QHN9KSSwwGn_7nThAmBimqQw
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="test.png"
+Content-Type: image/png
+
+< C:/temp/test.png
+--boundary--

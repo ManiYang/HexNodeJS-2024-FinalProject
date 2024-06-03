@@ -1,5 +1,5 @@
 const path = require('path')
-import { v4 as uuidv4 } from 'uuid';
+const { v4: uuidv4 } = require('uuid');
 
 const firebaseAdmin = require('../services/firebase');
 const { operationalError } = require('../services/errorHandling');
@@ -9,8 +9,8 @@ const bucket = firebaseAdmin.storage().bucket();
 
 module.exports = {
     async uploadImage (req, res, next) {
-        if (req.user === undefined) {
-            throw new Error('`user` property not found');
+        if (req.authenticatedUser === undefined) {
+            throw new Error('`authenticatedUser` property not found');
         }
         if (req.files === undefined) {
             throw new Error('`files` property not found');

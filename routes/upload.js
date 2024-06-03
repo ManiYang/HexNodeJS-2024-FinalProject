@@ -8,7 +8,7 @@ const controllers = require("../controllers/upload");
 router.post(
     "/image",
     errorHandled(authenticateUser),
-    errorHandled(checkUploadImage),
+    checkUploadImage,
     errorHandled(controllers.uploadImage)
 );
 
