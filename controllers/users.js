@@ -8,16 +8,16 @@ const { operationalError } = require("../services/errorHandling");
 const { respondSuccess } = require("../services/response");
 
 module.exports = {
-    getUsers: async (req, res, next) => {
+    async getUsers (req, res, next) {
         const users = await User.find({});
         respondSuccess(res, 200, users);
     },
 
-    getProfile: async (req, res, next) => {
+    async getProfile (req, res, next) {
         respondSuccess(res, 200, req.authenticatedUser.info);
     },
 
-    signUp: async (req, res, next) => {
+    async signUp (req, res, next) {
         if (req.body.password === undefined) {
             throw operationalError(400, "密碼未填寫");
         }
@@ -63,7 +63,7 @@ module.exports = {
         }
     },
 
-    signIn: async (req, res, next) => {
+    async signIn (req, res, next) {
         if (!req.body.email) {
             throw operationalError(400, "Email 未填寫");
         }
@@ -97,7 +97,7 @@ module.exports = {
         });
     },
 
-    updatePassword: async (req, res, next) => {
+    async updatePassword (req, res, next) {
         if (req.body.password === undefined) {
             throw operationalError(400, "密碼未填寫");
         }
@@ -138,7 +138,7 @@ module.exports = {
         });
     },
 
-    updateProfile: async (req, res, next) => {
+    async updateProfile (req, res, next) {
         const { nickname, photo, gender } = req.body;
         const updatedUser = await User.findByIdAndUpdate(
             req.authenticatedUser.id,

@@ -4,7 +4,7 @@ const { operationalError } = require('../services/errorHandling');
 const { respondSuccess } = require('../services/response');
 
 module.exports = {
-    getPosts: async (req, res, next) => {
+    async getPosts (req, res, next) {
         isTimeSortAscending = (req.query.timeSort === 'asc');
         searchPattern = req.query.q;
 
@@ -22,7 +22,7 @@ module.exports = {
         respondSuccess(res, 200, posts);
     },
 
-    createPost: async (req, res, next) => {
+    async createPost (req, res, next) {
         req.body.user = req.authenticatedUser.id;
         req.body.likes = [];
     
@@ -31,7 +31,7 @@ module.exports = {
         respondSuccess(res, 201, newPost);
     },
 
-    deletePost: async (req, res, next) => {
+    async deletePost (req, res, next) {
         const result = await Post.findByIdAndDelete(req.params.id);
         if (result === null) {
             throw operationalError(400, '找不到指定 ID 的貼文');
@@ -39,12 +39,12 @@ module.exports = {
         respondSuccess(res, 200, result);
     },
 
-    deleteAllPosts: async (req, res, next) => {
+    async deleteAllPosts (req, res, next) {
         const result = await Post.deleteMany({});
         respondSuccess(res, 200, result);
     },
  
-    updatePost: async (req, res, next) => {
+    async updatePost (req, res, next) {
         if (req.body.user !== undefined) {
             throw new operationalError(400, '發文者 user 不可更改');
         }
