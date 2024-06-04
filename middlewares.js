@@ -45,6 +45,15 @@ function handleRequestBodyForUser(req, res, next) {
     next();
 }
 
+/**
+ * Handles the request body for creating new comment.
+ */
+function handleRequestBodyForComment(req, res, next) {
+    trimObjectProperty(req.body, 'content');
+
+    next();
+}
+
 async function authenticateUser(req, res, next) {
     const authHeaderValue = req.headers.authorization ?? '';
     if (authHeaderValue.startsWith('Bearer ')) {
@@ -137,6 +146,7 @@ function verifyJwtAsync(token) {
 module.exports = {
     handleRequestBodyForPost,
     handleRequestBodyForUser,
+    handleRequestBodyForComment,
     authenticateUser,
     checkUploadImage,
     invalidRouteHandler,

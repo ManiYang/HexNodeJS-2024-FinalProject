@@ -1,5 +1,6 @@
+const Comment = require('../model/comments');
 const Post = require('../model/posts');
-const User = require('../model/users');
+// const User = require('../model/users');
 const { operationalError } = require('../services/errorHandling');
 const { respondSuccess } = require('../services/response');
 
@@ -15,6 +16,9 @@ module.exports = {
         ).populate({
             path: 'user',
             select: 'nickname photo'
+        }).populate({
+            path: 'comments',
+            select: 'content user -post'
         }).sort(
             { createdAt: (isTimeSortAscending ? 1 : -1) }
         );
@@ -62,5 +66,23 @@ module.exports = {
         }
 
         respondSuccess(res, 200, updatedPost);
+    },
+
+    async createComment (req, res, next) {
+        if (req.authenticatedUser === undefined) {
+            throw new Error('authenticated user not found');
+        }
+
+        const post = await Post.findById(req.params.id);
+        if (post === null) {
+            throw operationalError(400, '貼文不存在');
+        }
+
+        const newComment = await Comment.create({
+            'content': req.body.content,
+            'post': req.params.id,
+            'user': req.authenticatedUser.id
+        });
+        respondSuccess(res, 201, newComment);
     },
 };
