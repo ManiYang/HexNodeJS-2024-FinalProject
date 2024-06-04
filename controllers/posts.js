@@ -18,7 +18,7 @@ module.exports = {
             select: 'nickname photo'
         }).populate({
             path: 'comments',
-            select: 'content user -post'
+            select: 'content user createdAt -post'
         }).sort(
             { createdAt: (isTimeSortAscending ? 1 : -1) }
         );
