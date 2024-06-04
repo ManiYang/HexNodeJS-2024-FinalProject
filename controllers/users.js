@@ -160,7 +160,7 @@ module.exports = {
             .select('following.user following.createdAt')
             .populate({
                 path: 'following.user',
-                select: 'nickname photo -_id'
+                select: 'nickname photo'
             })
         respondSuccess(res, 200, result.following);
     },
