@@ -217,9 +217,48 @@ module.exports = {
         if (targetUserId === req.authenticatedUser.id) {
             throw operationalError(400, '無法取消追蹤自己');
         }
-
         
+        const targetUser = await User.findById(targetUserId);
+        if (targetUser === null) {
+            throw operationalError(400, '查無欲追蹤的使用者');
+        }
+        
+        //
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        try {
+            // remove from source user's `following` list
+            await User.findByIdAndUpdate(
+                req.authenticatedUser.id,
+                {
+                    $pull: {
+                        following: { user: targetUserId }
+                    }
+                },
+                { session }
+            );
 
+            // remove from target user's `followers` list
+            await User.findByIdAndUpdate(
+                targetUserId,
+                {
+                    $pull: {
+                        followers: { user: req.authenticatedUser.id }
+                    }
+                },
+                { session }
+            );
+
+            //
+            await session.commitTransaction();
+            session.endSession();
+
+            respondSuccess(res, 200);
+        } catch (err) {
+            await session.abortTransaction();
+            session.endSession();
+            throw err;
+        }
     },
 };
 
