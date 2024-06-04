@@ -36,6 +36,12 @@ router.patch(
     errorHandled(controllers.updateProfile)
 );
 
+router.get(
+    '/following',
+    errorHandled(authenticateUser),
+    errorHandled(controllers.getFollowingList)
+);
+
 router.post(
     '/:id/follow',
     errorHandled(authenticateUser),

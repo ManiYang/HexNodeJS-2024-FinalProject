@@ -155,6 +155,16 @@ module.exports = {
         respondSuccess(res, 200, updatedUser);
     },
 
+    async getFollowingList (req, res, next) {
+        const followsUsers = await User.findById(req.authenticatedUser.id)
+            .select('following.user following.createdAt')
+            .populate({
+                path: 'following.user',
+                select: 'nickname photo -_id'
+            })
+        respondSuccess(res, 200, followsUsers);
+    },
+
     async follow (req, res, next) {
         const targetUserId = req.params.id;
 
