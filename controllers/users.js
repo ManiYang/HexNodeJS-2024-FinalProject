@@ -38,7 +38,9 @@ module.exports = {
         const session = await mongoose.startSession();
         session.startTransaction();
         try {
-            const newUser = await User.create({ ...req.body, passwordHash });
+            const newUser = (
+                await User.create([{ ...req.body, passwordHash }], { session })
+            )[0];
             
             // generate JWT token
             const token = jwt.sign(
@@ -151,6 +153,73 @@ module.exports = {
         }
 
         respondSuccess(res, 200, updatedUser);
+    },
+
+    async follow (req, res, next) {
+        const targetUserId = req.params.id;
+
+        if (targetUserId === req.authenticatedUser.id) {
+            throw operationalError(400, '無法追蹤自己');
+        }
+
+        const targetUser = await User.findById(targetUserId);
+        if (targetUser === null) {
+            throw operationalError(400, '查無欲追蹤的使用者');
+        }
+
+        //
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        try {
+            // add to source user's `following` list
+            await User.updateOne(
+                {
+                    _id: req.authenticatedUser.id,
+                    'following.user': { $ne: targetUserId }
+                },
+                {
+                    $push: {
+                        following: { user: targetUserId }
+                    }
+                },
+                { session }
+            );
+
+            // add to target user's `followers` list
+            await User.updateOne(
+                {
+                    _id: targetUserId,
+                    'followers.user': { $ne: req.authenticatedUser.id }
+                },
+                {
+                    $push: {
+                        followers: { user: req.authenticatedUser.id }
+                    }
+                },
+                { session }
+            );
+
+            //
+            await session.commitTransaction();
+            session.endSession();
+
+            respondSuccess(res, 200);
+        } catch (err) {
+            await session.abortTransaction();
+            session.endSession();
+            throw err;
+        }
+    },
+
+    async unfollow (req, res, next) {
+        const targetUserId = req.params.id;
+
+        if (targetUserId === req.authenticatedUser.id) {
+            throw operationalError(400, '無法取消追蹤自己');
+        }
+
+        
+
     },
 };
 

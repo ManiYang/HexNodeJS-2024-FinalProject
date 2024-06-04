@@ -10,7 +10,19 @@ function processErrorForRespond(err) {
         isOperational = true;
         userMessage = err.message;
     } else {
-        if (err.name === "ValidationError") {
+        if (err.name === 'MulterError') {
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                statusCode = 400;
+                isOperational = true;
+                userMessage = `上傳的檔案不可超過 ${appConfig.maxUploadImageSizeMB} MB`;
+            }
+            else if (err.code === 'LIMIT_FILE_COUNT') {
+                statusCode = 400;
+                isOperational = true;
+                userMessage = '只能上傳一個檔案';
+            }
+        }
+        else if (err.name === "ValidationError") {
             statusCode = 400;
             isOperational = true;
             userMessage = '資料欄位未填寫正確，請重新輸入';
@@ -25,17 +37,10 @@ function processErrorForRespond(err) {
                 }
             }
         }
-        else if (err.name === 'MulterError') {
-            if (err.code === 'LIMIT_FILE_SIZE') {
-                statusCode = 400;
-                isOperational = true;
-                userMessage = `上傳的檔案不可超過 ${appConfig.maxUploadImageSizeMB} MB`;
-            }
-            else if (err.code === 'LIMIT_FILE_COUNT') {
-                statusCode = 400;
-                isOperational = true;
-                userMessage = '只能上傳一個檔案';
-            }
+        else if (err.name === 'CastError' && err.message.startsWith('Cast to ObjectId failed')) {
+            statusCode = 400;
+            isOperational = true;
+            userMessage = '無效的 ID';
         }
     }
 
