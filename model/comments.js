@@ -23,7 +23,8 @@ const commentSchema = new mongoose.Schema(
     },
     // schema options:
     {
-        versionKey: false
+        versionKey: false,
+        id: false
     }
 );
 

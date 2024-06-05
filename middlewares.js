@@ -72,7 +72,7 @@ async function authenticateUser(req, res, next) {
 
         const userInfo = await User.findById(decoded.id).select('-_id');
         if (userInfo === null) {
-            throw operationalError(400, 'user 不存在');
+            throw operationalError(401, '未登入');
         }
 
         req.authenticatedUser = { id: decoded.id, info: userInfo };
