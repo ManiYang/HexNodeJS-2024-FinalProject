@@ -21,8 +21,15 @@ module.exports = {
         }).sort(
             { createdAt: (isTimeSortAscending ? 1 : -1) }
         );
+        
+        const result = [];
+        for (let i = 0; i < posts.length; ++i) {
+            const doc =  posts[i].toObject();
+            delete doc.likes;
+            result.push(doc);
+        }
 
-        respondSuccess(res, 200, posts);
+        respondSuccess(res, 200, result);
     },
 
     async createPost (req, res, next) {
