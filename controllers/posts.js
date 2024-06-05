@@ -1,6 +1,5 @@
 const Comment = require('../model/comments');
 const Post = require('../model/posts');
-// const User = require('../model/users');
 const { operationalError } = require('../services/errorHandling');
 const { respondSuccess } = require('../services/response');
 
@@ -84,5 +83,33 @@ module.exports = {
             'user': req.authenticatedUser.id
         });
         respondSuccess(res, 201, newComment);
+    },
+
+    async addLike (req, res, next) {
+        const postId = req.params.id;
+
+        const result = await Post.updateOne(
+            {
+                _id: postId,
+                'likes.user': { $ne: req.authenticatedUser.id }
+            },
+            {
+                $push: {
+                    likes: { user: req.authenticatedUser.id }
+                }    
+            }
+        );
+
+        if (result.matchedCount === 0) {
+            // 兩種可能：(1) postId 不存在 (2) postId 的 `likes` 已經包含該使用者
+
+            const post = await Post.findById(postId);
+            if (post === null) {
+                // postId 不存在
+                throw operationalError(400, '貼文不存在');
+            }
+        }
+
+        respondSuccess(res, 200);
     },
 };

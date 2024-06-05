@@ -34,7 +34,8 @@ const userSchema = new mongoose.Schema(
         followers: [{
             user: {
                 type: mongoose.Schema.ObjectId,
-                ref: 'User'
+                ref: 'User',
+                required: [true, '使用者 user 未提供']
             },
             createdAt: {
                 type: Date,
