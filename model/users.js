@@ -40,7 +40,8 @@ const userSchema = new mongoose.Schema(
             createdAt: {
                 type: Date,
                 default: Date.now
-            }
+            },
+            _id: false
         }],
         following: [{
             user: {
@@ -50,7 +51,8 @@ const userSchema = new mongoose.Schema(
             createdAt: {
                 type: Date,
                 default: Date.now
-            }
+            },
+            _id: false
         }],
     },
     // schema options:

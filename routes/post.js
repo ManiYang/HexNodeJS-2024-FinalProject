@@ -42,4 +42,10 @@ router.post(
     errorHandled(controllers.addLike)
 );
 
+router.delete(
+    '/:id/unlike',
+    errorHandled(authenticateUser),
+    errorHandled(controllers.cancelLike)
+);
+
 module.exports = router;

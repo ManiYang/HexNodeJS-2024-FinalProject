@@ -112,4 +112,21 @@ module.exports = {
 
         respondSuccess(res, 200);
     },
+
+    async cancelLike (req, res, next) {
+        const postId = req.params.id;
+        const post = await Post.findByIdAndUpdate(
+            postId,
+            {
+                $pull: {
+                    likes: { user: req.authenticatedUser.id }
+                }
+            }
+        );
+        if (post === null) {
+            throw operationalError(400, '貼文不存在');
+        }
+
+        respondSuccess(res, 200);
+    }
 };
