@@ -278,7 +278,11 @@ module.exports = {
         }).populate({
             path: 'user',
             select: 'nickname photo'
-        }).select('user createdAt');
+        }).select(
+            'user createdAt'
+        ).sort({
+            createdAt: -1
+        });
         respondSuccess(res, 200, posts);
     },
 };

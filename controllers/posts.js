@@ -24,12 +24,32 @@ module.exports = {
         
         const result = [];
         for (let i = 0; i < posts.length; ++i) {
-            const doc =  posts[i].toObject();
-            delete doc.likes;
-            result.push(doc);
+            const postObj = posts[i].toObject();
+            delete postObj.likes;
+            result.push(postObj);
         }
 
         respondSuccess(res, 200, result);
+    },
+
+    async getSinglePost (req, res, next) {
+        const post = await Post.findById(
+            req.params.id
+        ).populate({
+            path: 'user',
+            select: 'nickname photo'
+        }).populate({
+            path: 'comments',
+            select: 'content user createdAt -post'
+        });
+
+        if (post === null) {
+            throw operationalError(400, '貼文不存在');
+        }
+
+        const postObj = post.toObject();
+        delete postObj.likes;
+        respondSuccess(res, 200, postObj);
     },
 
     async createPost (req, res, next) {
@@ -44,7 +64,7 @@ module.exports = {
     async deletePost (req, res, next) {
         const result = await Post.findByIdAndDelete(req.params.id);
         if (result === null) {
-            throw operationalError(400, '找不到指定 ID 的貼文');
+            throw operationalError(400, '貼文不存在');
         }
         respondSuccess(res, 200, result);
     },

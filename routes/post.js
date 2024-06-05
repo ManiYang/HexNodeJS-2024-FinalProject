@@ -9,6 +9,12 @@ const {
 const { errorHandled } = require('../services/errorHandling');
 const controllers = require('../controllers/posts');
 
+router.get(
+    '/:id',
+    errorHandled(authenticateUser),
+    errorHandled(controllers.getSinglePost)
+);
+
 router.post(
     '/',
     errorHandled(authenticateUser),
