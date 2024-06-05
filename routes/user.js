@@ -54,5 +54,11 @@ router.delete(
     errorHandled(controllers.unfollow)
 );
 
+router.get(
+    '/getLikeList',
+    errorHandled(authenticateUser),
+    errorHandled(controllers.getLikeList)
+);
+
 //
 module.exports = router;

@@ -51,7 +51,7 @@ const postSchema = new mongoose.Schema(
 );
 
 postSchema.virtual('likesCount').get(function () {
-    return this.likes.length;
+    return this.likes?.length;
 });
 
 postSchema.virtual('comments', {
