@@ -3,53 +3,71 @@ const Post = require('../model/posts');
 const { operationalError } = require('../services/errorHandling');
 const { respondSuccess } = require('../services/response');
 
+/**
+ * @param {object} args can have keys `isTimeSortAscending`, `textSearchPattern`, 
+ *                      `postId`, `userId`
+ * @returns a list of objects
+ */
+async function listPosts (args) {
+    // build filter
+    filter = {}
+    if (args.textSearchPattern) {
+        filter.content = new RegExp(args.textSearchPattern);
+    }
+    if (args.postId) {
+        filter._id = args.postId;
+    }
+    if (args.userId) {
+        filter.user = args.userId;
+    }
+
+    //
+    const postDocs = await Post.find(
+        filter
+    ).populate({
+        path: 'user',
+        select: 'nickname photo'
+    }).populate({
+        path: 'comments',
+        select: 'content user createdAt -post'
+    }).sort(
+        { createdAt: (Boolean(args.isTimeSortAscending) ? 1 : -1) }
+    );
+    
+    // remove `likes` field
+    const postObjs = [];
+    for (let i = 0; i < postDocs.length; ++i) {
+        const postObj = postDocs[i].toObject();
+        delete postObj.likes;
+        postObjs.push(postObj);
+    }
+
+    return postObjs;
+}
+
+//
+
 module.exports = {
     async getPosts (req, res, next) {
         isTimeSortAscending = (req.query.timeSort === 'asc');
-        searchPattern = req.query.q;
+        textSearchPattern = req.query.q;
 
-        const posts = await Post.find(
-            (searchPattern !== undefined)
-            ? { content: new RegExp(searchPattern) }
-            : {}
-        ).populate({
-            path: 'user',
-            select: 'nickname photo'
-        }).populate({
-            path: 'comments',
-            select: 'content user createdAt -post'
-        }).sort(
-            { createdAt: (isTimeSortAscending ? 1 : -1) }
-        );
-        
-        const result = [];
-        for (let i = 0; i < posts.length; ++i) {
-            const postObj = posts[i].toObject();
-            delete postObj.likes;
-            result.push(postObj);
-        }
-
-        respondSuccess(res, 200, result);
+        const posts = await listPosts({ isTimeSortAscending, textSearchPattern });
+        respondSuccess(res, 200, posts);
     },
 
     async getSinglePost (req, res, next) {
-        const post = await Post.findById(
-            req.params.id
-        ).populate({
-            path: 'user',
-            select: 'nickname photo'
-        }).populate({
-            path: 'comments',
-            select: 'content user createdAt -post'
-        });
-
-        if (post === null) {
+        const posts = await listPosts({ postId: req.params.id });
+        if (posts.length === 0) {
             throw operationalError(400, '貼文不存在');
         }
 
-        const postObj = post.toObject();
-        delete postObj.likes;
-        respondSuccess(res, 200, postObj);
+        respondSuccess(res, 200, posts[0]);
+    },
+
+    async getPostsByUser (req, res, next) {
+        const posts = await listPosts({ userId: req.authenticatedUser.id });
+        respondSuccess(res, 200, posts);
     },
 
     async createPost (req, res, next) {
