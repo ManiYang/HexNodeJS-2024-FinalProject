@@ -42,6 +42,11 @@ function processErrorForRespond(err) {
             isOperational = true;
             userMessage = '無效的 ID';
         }
+        else if (err.name === 'SyntaxError' && err.type === 'entity.parse.failed') {
+            statusCode = 400;
+            isOperational = true;
+            userMessage = '資料格式錯誤';
+        }
     }
 
     return { statusCode, isOperational, userMessage };
