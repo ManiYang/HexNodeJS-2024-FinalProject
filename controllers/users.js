@@ -10,7 +10,7 @@ const { respondSuccess } = require('../services/response');
 
 module.exports = {
     async getUsers (req, res, next) {
-        const users = await User.find({});
+        const users = await User.find({}).select('nickname photo');
         respondSuccess(res, 200, users);
     },
 
