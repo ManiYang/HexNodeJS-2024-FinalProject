@@ -15,7 +15,7 @@ router.get(
     '/user/:userId',
     errorHandled(authenticateUser), 
     errorHandled(controllers.getPostsByUser)
-);
+); // 可取得他人的貼文列表
 
 router.delete(
     '/', 

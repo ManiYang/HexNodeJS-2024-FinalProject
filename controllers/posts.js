@@ -66,7 +66,7 @@ module.exports = {
     },
 
     async getPostsByUser (req, res, next) {
-        const posts = await listPosts({ userId: req.authenticatedUser.id });
+        const posts = await listPosts({ userId: req.params.userId });
         respondSuccess(res, 200, posts);
     },
 
