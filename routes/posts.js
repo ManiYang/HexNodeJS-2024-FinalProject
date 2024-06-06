@@ -17,10 +17,10 @@ router.get(
     errorHandled(controllers.getPostsByUser)
 ); // 可取得他人的貼文列表
 
-router.delete(
-    '/', 
-    errorHandled(authenticateUser), 
-    errorHandled(controllers.deleteAllPosts)
-);
+// router.delete(
+//     '/', 
+//     errorHandled(authenticateUser), 
+//     errorHandled(controllers.deleteAllPosts)
+// );
 
 module.exports = router;

@@ -93,13 +93,18 @@ module.exports = {
     },
  
     async updatePost (req, res, next) {
+        // 只允許修改 type, tags, image, content
         if (req.body.user !== undefined) {
             throw new operationalError(400, '發文者 user 不可更改');
         }
-        if (req.body.createdAt != undefined) {
+        if (req.body.createdAt !== undefined) {
             throw operationalError(400, 'createdAt 不可更改');
         }
+        if (req.body.likes !== undefined) {
+            throw operationalError(400, 'likes 不可更改');
+        }
 
+        //
         const updatedPost = await Post.findByIdAndUpdate(
             req.params.id, 
             req.body,
