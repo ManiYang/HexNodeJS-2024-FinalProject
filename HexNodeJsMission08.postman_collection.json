@@ -1,0 +1,892 @@
+{
+	"info": {
+		"_postman_id": "9579702c-81a2-4d4e-a663-ea0840cde525",
+		"name": "hex node.js mission04",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33232213"
+	},
+	"item": [
+		{
+			"name": "會員功能",
+			"item": [
+				{
+					"name": "註冊會員",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nickname\": \"Emily\",\r\n    \"email\": \"emily@example.com\",\r\n    \"password\": \"{{emily_password}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/user/sign_up",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"user",
+								"sign_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登入會員",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"zoe4@example.com\",\r\n    \"password\": \"{{zoe4_password}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/user/sign_in",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"user",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "重設密碼",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"{{zoe4_password}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/user/updatePassword",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"user",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人資料",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emily_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/user/profile",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新個人資料",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nickname\": \"Zoe4\",\r\n    \"gender\": \"female\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/user/profile",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "_會員列表",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/users",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "會員按讚追蹤動態",
+			"item": [
+				{
+					"name": "追蹤朋友",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{john_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/user/6666e0b9a969326e1bc9b554/follow",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"user",
+								"6666e0b9a969326e1bc9b554",
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取消追蹤朋友",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{john_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/user/6666e151a969326e1bc9b55c/unfollow",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"user",
+								"6666e151a969326e1bc9b55c",
+								"unfollow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人按讚列表",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{john_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/user/getLikeList",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"user",
+								"getLikeList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人追蹤名單",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{john_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/user/following",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"user",
+								"following"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "動態貼文",
+			"item": [
+				{
+					"name": "取得所有貼文",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/posts",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得所有貼文-舊到新",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/posts?timeSort=asc",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "timeSort",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得所有貼文-關鍵字搜尋",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/posts?q=test",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得單一貼文",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/6666e8d5a969326e1bc9b5cd",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"post",
+								"6666e8d5a969326e1bc9b5cd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增貼文",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emily_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"type\": \"person\",\r\n    \"tags\": [\"閒聊\"],\r\n    \"content\": \"What did you do during the holidays?\",\r\n    \"image\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增貼文按讚",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/6666e8d5a969326e1bc9b5cd/like",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"post",
+								"6666e8d5a969326e1bc9b5cd",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取消貼文按讚",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/6666e8d5a969326e1bc9b5cd/unlike",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"post",
+								"6666e8d5a969326e1bc9b5cd",
+								"unlike"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增貼文的留言",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emily_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"You're a good student.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/6666e8d5a969326e1bc9b5cd/comment",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"post",
+								"6666e8d5a969326e1bc9b5cd",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人所有貼文",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/posts/user/6666e151a969326e1bc9b55c",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts",
+								"user",
+								"6666e151a969326e1bc9b55c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "_刪除特定貼文",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/6666e741a969326e1bc9b5a3",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"post",
+								"6666e741a969326e1bc9b5a3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "_更新貼文",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"  test123 \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/post/6656ca4f1c7e87296a69bdc5",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"post",
+								"6656ca4f1c7e87296a69bdc5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "其他",
+			"item": [
+				{
+					"name": "上傳圖片",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{zoe4_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "l7kOVh_i8/螢幕擷取畫面 2024-06-10 202221.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://hexnodejs2024-mission04-midterm.onrender.com/upload/image",
+							"protocol": "https",
+							"host": [
+								"hexnodejs2024-mission04-midterm",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"upload",
+								"image"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "zoe4_password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "zoe4_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "john_password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "john_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "emily_password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "emily_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
