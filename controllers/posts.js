@@ -1,5 +1,6 @@
 const Comment = require('../model/comments');
 const Post = require('../model/posts');
+const User = require('../model/users');
 const { operationalError } = require('../services/errorHandling');
 const { respondSuccess } = require('../services/response');
 
