@@ -66,6 +66,15 @@ module.exports = {
     },
 
     async getPostsByUser (req, res, next) {
+        // 檢查使用者 `req.params.userId` 存在
+        if (req.params.userId !== req.authenticatedUser.id) {
+            const targetUser = await User.findById(req.params.userId);
+            if (targetUser === null) {
+                throw operationalError(400, '指定的會員不存在');
+            }
+        }
+
+        //
         const posts = await listPosts({ userId: req.params.userId });
         respondSuccess(res, 200, posts);
     },
